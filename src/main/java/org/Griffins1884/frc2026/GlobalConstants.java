@@ -4,6 +4,7 @@ import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
+import edu.wpi.first.wpilibj.RobotBase;
 import org.Griffins1884.frc2026.util.LoggedTunableNumber;
 
 /**
@@ -11,8 +12,8 @@ import org.Griffins1884.frc2026.util.LoggedTunableNumber;
  * constants.
  */
 public final class GlobalConstants {
-  public static final RobotMode MODE = RobotMode.REAL;
-  public static final RobotType ROBOT = RobotType.ECLAIR;
+  public static final RobotMode MODE = resolveRobotMode();
+  public static final RobotType ROBOT = resolveRobotType(MODE);
   public static final LoggingMode LOGGING_MODE = LoggingMode.DEBUG;
   public static final double ODOMETRY_FREQUENCY = 250.0;
 
@@ -40,6 +41,22 @@ public final class GlobalConstants {
     COMP
   }
 
+  private static RobotMode resolveRobotMode() {
+    String override = System.getProperty("season2026.mode", "").trim();
+    if (!override.isEmpty()) {
+      return RobotMode.valueOf(override.toUpperCase());
+    }
+    return RobotBase.isSimulation() ? RobotMode.SIM : RobotMode.REAL;
+  }
+
+  private static RobotType resolveRobotType(RobotMode mode) {
+    String override = System.getProperty("season2026.robot", "").trim();
+    if (!override.isEmpty()) {
+      return RobotType.valueOf(override.toUpperCase());
+    }
+    return mode == RobotMode.SIM ? RobotType.SIMBOT : RobotType.ECLAIR;
+  }
+
   public static boolean isDebugMode() {
     return LOGGING_MODE == LoggingMode.DEBUG;
   }
@@ -53,7 +70,7 @@ public final class GlobalConstants {
    * called on deploy).
    */
   public static void main(String... args) {
-    if (ROBOT == RobotType.SIMBOT) {
+    if (MODE == RobotMode.REAL && ROBOT == RobotType.SIMBOT) {
       new Alert("SIM robot loaded in REAL mode, gains likely breaking!", AlertType.kWarning)
           .set(true);
     }

@@ -1,5 +1,6 @@
 package org.Griffins1884.frc2026.util;
 
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.DriverStation;
 import org.Griffins1884.frc2026.runtime.RuntimeModeManager;
 
@@ -21,7 +22,7 @@ public final class RobotLogging {
 
   public static void debug(String message) {
     if (isDebugMode()) {
-      DriverStation.reportWarning("[DEBUG] " + message, false);
+      DataLogManager.log("[DEBUG] " + message);
     }
   }
 

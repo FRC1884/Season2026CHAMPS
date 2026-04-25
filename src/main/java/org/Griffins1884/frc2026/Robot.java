@@ -95,6 +95,8 @@ public class Robot extends LoggedRobot {
     // Start AdvantageKit logger
     Logger.start();
 
+    DriverStation.silenceJoystickConnectionWarning(MODE == GlobalConstants.RobotMode.SIM);
+
     initNetworkTablesLogging();
 
     // Instantiate our RobotContainer. This will perform all our button bindings,
