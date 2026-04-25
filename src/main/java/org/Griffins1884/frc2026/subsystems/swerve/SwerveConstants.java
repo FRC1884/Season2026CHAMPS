@@ -37,25 +37,29 @@ public final class SwerveConstants {
   public static final double TRACK_WIDTH =
       switch (ROBOT) {
         case ECLAIR -> Units.inchesToMeters(13.0);
-        case COMPBOT, DBOT, SIMBOT -> Units.inchesToMeters(27.5);
+        case SIMBOT -> Units.inchesToMeters(27.5);
       };
 
   /** Meters */
   public static final double WHEEL_BASE =
       switch (ROBOT) {
         case ECLAIR -> Units.inchesToMeters(42.0);
-        case COMPBOT, DBOT, SIMBOT -> Units.inchesToMeters(27.5);
+        case SIMBOT -> Units.inchesToMeters(27.5);
       };
 
   /** Meters */
   public static final double BUMPER_LENGTH =
       switch (ROBOT) {
-        case ECLAIR -> Units.inchesToMeters(42.0);
-        case COMPBOT, DBOT, SIMBOT -> Units.inchesToMeters(34.0);
+        case ECLAIR -> Units.inchesToMeters(34.0);
+        case SIMBOT -> Units.inchesToMeters(34.0);
       };
 
   /** Meters */
-  public static final double BUMPER_WIDTH = Units.inchesToMeters(34.0);
+  public static final double BUMPER_WIDTH =
+      switch (ROBOT) {
+        case ECLAIR -> Units.inchesToMeters(42.0);
+        case SIMBOT -> Units.inchesToMeters(34.0);
+      };
 
   public static final Translation2d[] MODULE_TRANSLATIONS =
       new Translation2d[] {
@@ -102,68 +106,68 @@ public final class SwerveConstants {
 
   static final int PIGEON_ID =
       switch (ROBOT) {
-        case COMPBOT, DBOT, SIMBOT -> 60;
+        case SIMBOT -> 60;
         case ECLAIR -> ECLAIR_PIGEON_ID;
       };
   ;
   private static final int FRD_ID =
       switch (ROBOT) {
-        case COMPBOT, DBOT, SIMBOT -> 13;
+        case SIMBOT -> 13;
         case ECLAIR -> ECLAIR_FRD_ID;
       };
   private static final int FRR_ID =
       switch (ROBOT) {
-        case COMPBOT, DBOT, SIMBOT -> 12;
+        case SIMBOT -> 12;
         case ECLAIR -> ECLAIR_FRR_ID;
       };
   private static final int FRR_CANCODER_ID =
       switch (ROBOT) {
-        case COMPBOT, DBOT, SIMBOT -> 4;
+        case SIMBOT -> 4;
         case ECLAIR -> ECLAIR_FRR_CANCODER_ID;
       };
   private static final int FLD_ID =
       switch (ROBOT) {
-        case COMPBOT, DBOT, SIMBOT -> 11;
+        case SIMBOT -> 11;
         case ECLAIR -> ECLAIR_FLD_ID;
       };
   private static final int FLR_ID =
       switch (ROBOT) {
-        case COMPBOT, DBOT, SIMBOT -> 10;
+        case SIMBOT -> 10;
         case ECLAIR -> ECLAIR_FLR_ID;
       };
   private static final int FLR_CANCODER_ID =
       switch (ROBOT) {
-        case COMPBOT, DBOT, SIMBOT -> 3;
+        case SIMBOT -> 3;
         case ECLAIR -> ECLAIR_FLR_CANCODER_ID;
       };
   private static final int BRD_ID =
       switch (ROBOT) {
-        case COMPBOT, DBOT, SIMBOT -> 14;
+        case SIMBOT -> 14;
         case ECLAIR -> ECLAIR_BRD_ID;
       };
   private static final int BRR_ID =
       switch (ROBOT) {
-        case COMPBOT, DBOT, SIMBOT -> 15;
+        case SIMBOT -> 15;
         case ECLAIR -> ECLAIR_BRR_ID;
       };
   private static final int BRR_CANCODER_ID =
       switch (ROBOT) {
-        case COMPBOT, DBOT, SIMBOT -> 5;
+        case SIMBOT -> 5;
         case ECLAIR -> ECLAIR_BRR_CANCODER_ID;
       };
   private static final int BLD_ID =
       switch (ROBOT) {
-        case COMPBOT, DBOT, SIMBOT -> 16;
+        case SIMBOT -> 16;
         case ECLAIR -> ECLAIR_BLD_ID;
       };
   private static final int BLR_ID =
       switch (ROBOT) {
-        case COMPBOT, DBOT, SIMBOT -> 17;
+        case SIMBOT -> 17;
         case ECLAIR -> ECLAIR_BLR_ID;
       };
   private static final int BLR_CANCODER_ID =
       switch (ROBOT) {
-        case COMPBOT, DBOT, SIMBOT -> 6;
+        case SIMBOT -> 6;
         case ECLAIR -> ECLAIR_BLR_CANCODER_ID;
       };
 
@@ -185,22 +189,22 @@ public final class SwerveConstants {
   private static final Rotation2d FLR_ZERO =
       switch (ROBOT) {
         case ECLAIR -> ECLAIR_FLR_ZERO;
-        case COMPBOT, DBOT, SIMBOT -> COMPBOT_FLR_ZERO;
+        case SIMBOT -> COMPBOT_FLR_ZERO;
       };
   private static final Rotation2d FRR_ZERO =
       switch (ROBOT) {
         case ECLAIR -> ECLAIR_FRR_ZERO;
-        case COMPBOT, DBOT, SIMBOT -> COMPBOT_FRR_ZERO;
+        case SIMBOT -> COMPBOT_FRR_ZERO;
       };
   private static final Rotation2d BLR_ZERO =
       switch (ROBOT) {
         case ECLAIR -> ECLAIR_BLR_ZERO;
-        case COMPBOT, DBOT, SIMBOT -> COMPBOT_BLR_ZERO;
+        case SIMBOT -> COMPBOT_BLR_ZERO;
       };
   private static final Rotation2d BRR_ZERO =
       switch (ROBOT) {
         case ECLAIR -> ECLAIR_BRR_ZERO;
-        case COMPBOT, DBOT, SIMBOT -> COMPBOT_BRR_ZERO;
+        case SIMBOT -> COMPBOT_BRR_ZERO;
       };
 
   // Inverted encoders or turn motors
@@ -257,9 +261,12 @@ public final class SwerveConstants {
   /** Wheel rotations induced per full steering rotation at the motor sensor. */
   public static final double KRAKEN_STEER_DRIVE_COUPLING_RATIO = 4.5;
 
+  /** Meters per second, SDS MK5n R2 theoretical Kraken X60 FOC free speed. */
+  public static final double THEORETICAL_MAX_LINEAR_SPEED =
+      ROBOT == RobotType.ECLAIR ? Units.feetToMeters(16.8) : 5.3;
+
   /** Meters per second */
-  public static final double MAX_LINEAR_SPEED =
-      (ROBOT == RobotType.COMPBOT || ROBOT == RobotType.ECLAIR) ? 5.4804 : 5.3;
+  public static final double MAX_LINEAR_SPEED = THEORETICAL_MAX_LINEAR_SPEED * 0.85;
 
   /** Radians per second */
   public static final double MAX_ANGULAR_SPEED = (0.5 * MAX_LINEAR_SPEED) / DRIVE_BASE_RADIUS;
@@ -273,17 +280,20 @@ public final class SwerveConstants {
   public static final double WHEEL_FRICTION_COEFF = COTS.WHEELS.SLS_PRINTED_WHEELS.cof;
   private static final double MAPLE_SIM_WHEEL_FRICTION_COEFF = Math.min(WHEEL_FRICTION_COEFF, 1.35);
 
-  /** Kilograms per square meter */
-  public static final double ROBOT_INERTIA = 6.883;
-
   /** Kilograms */
   public static final double ROBOT_MASS = Units.lbsToKilograms(135.0);
 
+  /** Kilograms per square meter */
+  public static final double ROBOT_INERTIA =
+      ROBOT == RobotType.ECLAIR
+          ? ROBOT_MASS * (BUMPER_LENGTH * BUMPER_LENGTH + BUMPER_WIDTH * BUMPER_WIDTH) / 12.0
+          : 6.883;
+
   // Drive motor configuration
-  public static final DCMotor DRIVE_GEARBOX = DCMotor.getKrakenX60(1);
+  public static final DCMotor DRIVE_GEARBOX = DCMotor.getKrakenX60Foc(1);
 
   public static final double DRIVE_GEAR_RATIO = 5.08; // Spark Max
-  public static final double KRAKEN_DRIVE_GEAR_RATIO = 6.03; // MK5n drive ratio (per team)
+  public static final double KRAKEN_DRIVE_GEAR_RATIO = 6.03; // MK5n R2 drive ratio
 
   static final boolean DRIVE_INVERTED = true;
 
@@ -298,14 +308,13 @@ public final class SwerveConstants {
   // Drive motor PID configuration
   static final Gains DRIVE_MOTOR_GAINS =
       switch (ROBOT) {
-        case COMPBOT, DBOT, ECLAIR ->
-            new Gains("Swerve/DriveMotor/Compbot", 0.0, 0.0, 0.0, 0.0, 0.1, 0.0, 0.0);
+        case ECLAIR -> new Gains("Swerve/DriveMotor/Compbot", 0.0, 0.0, 0.0, 0.0, 0.1, 0.0, 0.0);
         case SIMBOT -> new Gains("Swerve/DriveMotor/Simbot", 0.05, 0.0, 0.0, 0.0, 0.0789, 0.0, 0.0);
       };
   // Torque-current gains for Kraken FOC (amps-based, per-radian units)
   static final Gains KRAKEN_DRIVE_TORQUE_GAINS =
       switch (ROBOT) {
-        case COMPBOT, DBOT, ECLAIR ->
+        case ECLAIR ->
             new Gains("Swerve/KrakenDriveTorque/Compbot", 45.0, 0.0, 0.0, 5.0, 0.4, 0.0, 0.0);
         case SIMBOT ->
             new Gains("Swerve/KrakenDriveTorque/Simbot", 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0);
@@ -319,7 +328,7 @@ public final class SwerveConstants {
   static final double DRIVE_ENCODER_VELOCITY_FACTOR = (2 * Math.PI) / 60.0 / DRIVE_GEAR_RATIO;
 
   // Rotator motor configuration
-  public static final DCMotor TURN_GEARBOX = DCMotor.getKrakenX60(1);
+  public static final DCMotor TURN_GEARBOX = DCMotor.getKrakenX44Foc(1);
 
   public static final double ROTATOR_GEAR_RATIO = 9424.0 / 203.0;
   public static final double KRAKEN_ROTATOR_GEAR_RATIO = 287.0 / 11.0;
@@ -334,14 +343,13 @@ public final class SwerveConstants {
   // Rotator PID configuration
   static final Gains ROTATOR_GAINS =
       switch (ROBOT) {
-        case COMPBOT, DBOT, ECLAIR -> new Gains("Swerve/Rotator/Compbot", 2.0, 0.0, 0.0);
+        case ECLAIR -> new Gains("Swerve/Rotator/Compbot", 2.0, 0.0, 0.0);
         case SIMBOT -> new Gains("Swerve/Rotator/Simbot", 12.0, 0.0, 0.2);
       };
   // Torque-current gains for Kraken turn control (amps-based, per-radian units)
   static final Gains KRAKEN_TURN_TORQUE_GAINS =
       switch (ROBOT) {
-        case COMPBOT, DBOT, ECLAIR ->
-            new Gains("Swerve/KrakenTurnTorque/Compbot", 8000.0, 0.0, 50.0);
+        case ECLAIR -> new Gains("Swerve/KrakenTurnTorque/Compbot", 8000.0, 0.0, 50.0);
         case SIMBOT -> new Gains("Swerve/KrakenTurnTorque/Simbot", 0.0, 0.0, 0.0);
       };
 
@@ -381,8 +389,8 @@ public final class SwerveConstants {
           Kilograms.of(ROBOT_MASS),
           Meters.of(BUMPER_LENGTH),
           Meters.of(BUMPER_WIDTH),
-          Meters.of(WHEEL_BASE),
           Meters.of(TRACK_WIDTH),
+          Meters.of(WHEEL_BASE),
           switch (GYRO_TYPE) {
             case PIGEON -> COTS.ofPigeon2();
             case NAVX -> COTS.ofNav2X();
