@@ -58,7 +58,7 @@ public class OperatorBoardTracker extends SubsystemBase implements AutoCloseable
   private String lastRuntimeProfileStatus = "READY";
   private String lastSubsystemDescriptionsJson =
       writeJson(OperatorBoardDataModels.emptyDefaultSubsystemDescriptions());
-  private double lastTelemetryPublishTimestampSec = Double.NEGATIVE_INFINITY;
+  private double lastTelemetryPublishTimestampSec;
   private double lastQueueActionTimestampSec = Double.NEGATIVE_INFINITY;
   private ActionTraceState lastActionTraceState =
       new ActionTraceState(
@@ -83,6 +83,7 @@ public class OperatorBoardTracker extends SubsystemBase implements AutoCloseable
             Filesystem.getDeployDirectory().toPath().resolve("pathplanner").resolve("autos"));
     this.autoQueue = new RebuiltAutoQueue(new RebuiltSpotLibrary(), drive, deployAutoLibrary);
     this.webServer = maybeStartWebServer();
+    this.lastTelemetryPublishTimestampSec = Timer.getFPGATimestamp();
   }
 
   @Override
@@ -95,10 +96,10 @@ public class OperatorBoardTracker extends SubsystemBase implements AutoCloseable
 
     autoQueue.handleInputs(inputs);
     autoQueue.periodic();
-    autoQueue.logState();
     syncQueueActionTrace();
 
     if (shouldPublishTelemetry()) {
+      autoQueue.logState();
       publishTelemetry();
     }
   }

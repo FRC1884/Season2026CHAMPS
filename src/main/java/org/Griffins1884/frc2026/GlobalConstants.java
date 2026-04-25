@@ -14,7 +14,7 @@ import org.Griffins1884.frc2026.util.LoggedTunableNumber;
 public final class GlobalConstants {
   public static final RobotMode MODE = resolveRobotMode();
   public static final RobotType ROBOT = resolveRobotType(MODE);
-  public static final LoggingMode LOGGING_MODE = LoggingMode.DEBUG;
+  public static final LoggingMode LOGGING_MODE = LoggingMode.COMP;
   public static final double ODOMETRY_FREQUENCY = 250.0;
 
   public static final double FIELD_WIDTH_METERS = Units.feetToMeters(26 + (5.0 / 12));
