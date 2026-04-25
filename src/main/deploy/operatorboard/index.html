@@ -51,26 +51,8 @@
       <section class="tab-page is-active" data-tab-page="teleop">
         <div class="layout layout--teleop">
           <section class="panel panel--states">
-            <div class="panel__title">Game State</div>
-            <div id="state-buttons" class="state-buttons"></div>
-            <div class="state-actions">
-              <button id="auto-state-button" class="state-button state-button--auto" type="button">
-                Return To Auto
-              </button>
-            </div>
+            <div class="panel__title">Drive Status</div>
             <div class="driver-controls">
-              <div class="driver-indicator">
-                <div class="driver-indicator__label">Shoot Enabled</div>
-                <div id="driver-shoot-indicator" class="driver-indicator__value">--</div>
-              </div>
-              <div class="driver-indicator">
-                <div class="driver-indicator__label">Intake Rollers Hold</div>
-                <div id="driver-intake-rollers-indicator" class="driver-indicator__value">--</div>
-              </div>
-              <div class="driver-indicator">
-                <div class="driver-indicator__label">Intake Deploy</div>
-                <div id="driver-intake-deploy-indicator" class="driver-indicator__value">--</div>
-              </div>
               <div class="driver-indicator">
                 <div class="driver-indicator__label">Teleop Override</div>
                 <div id="teleop-override-indicator" class="driver-indicator__value">--</div>
@@ -80,27 +62,13 @@
                 <div id="driver-control-indicator" class="driver-indicator__value">--</div>
               </div>
             </div>
-            <div class="state-actions">
-              <button id="intake-rezero-button" class="state-button state-button--auto" type="button">
-                Rezero Intake Deploy
-              </button>
-            </div>
-            <div class="state-actions">
-              <button
-                id="intake-rezero-cancel-button"
-                class="state-button state-button--danger"
-                type="button"
-              >
-                Cancel Intake Rezero
-              </button>
-            </div>
             <div class="kv">
               <div class="kv__row">
-                <div class="kv__k">Requested</div>
+                <div class="kv__k">Requested State</div>
                 <div id="requested-state" class="kv__v">--</div>
               </div>
               <div class="kv__row">
-                <div class="kv__k">Current</div>
+                <div class="kv__k">Current State</div>
                 <div id="current-state" class="kv__v">--</div>
               </div>
               <div class="kv__row">
@@ -110,10 +78,6 @@
               <div class="kv__row">
                 <div class="kv__k">Reason</div>
                 <div id="request-reason" class="kv__v kv__v--muted">--</div>
-              </div>
-              <div class="kv__row">
-                <div class="kv__k">Intake Rezero</div>
-                <div id="intake-rezero-status" class="kv__v kv__v--muted">--</div>
               </div>
             </div>
           </section>
@@ -126,72 +90,21 @@
                 --
               </div>
             </div>
-            <div class="hero-indicator hero-indicator--vision">
-              <div class="hero-indicator__label">Any Vision Camera Sees Pose</div>
-              <div
-                id="vision-pose-visible"
-                class="hero-indicator__value driver-indicator__value"
-              >
-                --
-              </div>
-            </div>
             <div class="grid">
               <div class="tile">
                 <div class="tile__k">Alliance</div>
                 <div id="alliance" class="tile__v">--</div>
               </div>
-              <div class="tile">
-                <div class="tile__k">Hub Shift</div>
-                <div id="hub-timeframe" class="tile__v">--</div>
-              </div>
-              <div class="tile">
-                <div class="tile__k">Our Hub</div>
-                <div id="our-hub" class="tile__v">--</div>
-              </div>
-              <div class="tile">
-                <div class="tile__k">Has Fuel</div>
-                <div id="has-ball" class="tile__v">--</div>
-              </div>
               <div class="tile tile--wide">
-                <div class="tile__k">Recommendation</div>
-                <div id="hub-recommendation" class="tile__v">--</div>
+                <div class="tile__k">Robot Pose</div>
+                <div id="robot-pose-teleop" class="tile__v tile__v--mono">--</div>
               </div>
             </div>
           </section>
 
           <div class="teleop-stack">
             <section class="panel panel--states">
-            <div class="panel__title">Debug Controls</div>
-            <div class="state-actions">
-              <button id="music-button" class="state-button state-button--music" type="button">
-                Play Swerve Song
-              </button>
-            </div>
-            <div class="state-actions">
-              <button id="music-stop-button" class="state-button state-button--music" type="button">
-                Stop Swerve Song
-              </button>
-            </div>
-            <div class="music-upload">
-              <label class="music-upload__label" for="music-file">Upload .chrp</label>
-              <input id="music-file" class="music-upload__input" type="file" accept=".chrp" />
-              <button id="music-upload-button" class="state-button state-button--auto" type="button">
-                Upload File
-              </button>
-              <div id="music-upload-status" class="music-upload__status">--</div>
-            </div>
-            <div class="music-volume">
-              <label class="music-volume__label" for="music-volume">Volume</label>
-              <input
-                id="music-volume"
-                class="music-volume__slider"
-                type="range"
-                min="0"
-                max="100"
-                value="70"
-              />
-              <div id="music-volume-value" class="music-volume__value">70%</div>
-            </div>
+            <div class="panel__title">Log Controls</div>
             <div class="state-actions">
               <button id="roll-logs-button" class="state-button state-button--auto" type="button">
                 Roll Logs
@@ -202,29 +115,7 @@
                 Clean Logs Folder
               </button>
             </div>
-            <div class="state-actions">
-              <button
-                id="intake-manual-zero-seek-button"
-                class="state-button state-button--auto"
-                type="button"
-              >
-                Run Intake Zero Seek
-              </button>
-            </div>
-            <div class="state-actions">
-              <button
-                id="intake-manual-zero-seek-cancel-button"
-                class="state-button state-button--danger"
-                type="button"
-              >
-                Cancel Intake Zero Seek
-              </button>
-            </div>
             <div class="kv">
-              <div class="kv__row">
-                <div class="kv__k">Intake Zero Seek</div>
-                <div id="intake-manual-zero-seek-status" class="kv__v">--</div>
-              </div>
               <div class="kv__row">
                 <div class="kv__k">Log Roll</div>
                 <div id="log-roll-status" class="kv__v">--</div>
@@ -293,54 +184,7 @@
       <section class="tab-page" data-tab-page="debug">
         <div class="layout layout--debug">
           <section class="panel panel--states">
-            <div class="panel__title">Debug Controls</div>
-            <div class="state-actions">
-              <button
-                id="debug-tab-music-button"
-                class="state-button state-button--music"
-                type="button"
-              >
-                Play Swerve Song
-              </button>
-            </div>
-            <div class="state-actions">
-              <button
-                id="debug-tab-music-stop-button"
-                class="state-button state-button--music"
-                type="button"
-              >
-                Stop Swerve Song
-              </button>
-            </div>
-            <div class="music-upload">
-              <label class="music-upload__label" for="debug-tab-music-file">Upload .chrp</label>
-              <input
-                id="debug-tab-music-file"
-                class="music-upload__input"
-                type="file"
-                accept=".chrp"
-              />
-              <button
-                id="debug-tab-music-upload-button"
-                class="state-button state-button--auto"
-                type="button"
-              >
-                Upload File
-              </button>
-              <div id="debug-tab-music-upload-status" class="music-upload__status">--</div>
-            </div>
-            <div class="music-volume">
-              <label class="music-volume__label" for="debug-tab-music-volume">Volume</label>
-              <input
-                id="debug-tab-music-volume"
-                class="music-volume__slider"
-                type="range"
-                min="0"
-                max="100"
-                value="70"
-              />
-              <div id="debug-tab-music-volume-value" class="music-volume__value">70%</div>
-            </div>
+            <div class="panel__title">Log Controls</div>
             <div class="state-actions">
               <button
                 id="debug-tab-roll-logs-button"
@@ -359,24 +203,6 @@
                 Clean Logs Folder
               </button>
             </div>
-            <div class="state-actions">
-              <button
-                id="debug-tab-intake-manual-zero-seek-button"
-                class="state-button state-button--auto"
-                type="button"
-              >
-                Run Intake Zero Seek
-              </button>
-            </div>
-            <div class="state-actions">
-              <button
-                id="debug-tab-intake-manual-zero-seek-cancel-button"
-                class="state-button state-button--danger"
-                type="button"
-              >
-                Cancel Intake Zero Seek
-              </button>
-            </div>
           </section>
 
           <div class="teleop-stack">
@@ -390,14 +216,6 @@
                 <div class="tile">
                   <div class="tile__k">Brownout</div>
                   <div id="brownout" class="tile__v">--</div>
-                </div>
-                <div class="tile">
-                  <div class="tile__k">Vision</div>
-                  <div id="vision-status" class="tile__v">--</div>
-                </div>
-                <div class="tile">
-                  <div class="tile__k">Turret</div>
-                  <div id="turret-status" class="tile__v">--</div>
                 </div>
                 <div class="tile">
                   <div class="tile__k">Drive SysId</div>
@@ -422,10 +240,6 @@
                 <div class="tile tile--wide">
                   <div class="tile__k">Target</div>
                   <div id="target" class="tile__v tile__v--mono">--</div>
-                </div>
-                <div class="tile tile--wide">
-                  <div class="tile__k">FMS Hub Data</div>
-                  <div id="hub-fms" class="tile__v tile__v--mono">--</div>
                 </div>
               </div>
             </section>
@@ -457,8 +271,8 @@
                   <div id="next-auto-summary" class="tile__v tile__v--lines">--</div>
                 </div>
                 <div class="tile">
-                  <div class="tile__k">Mechanisms</div>
-                  <div id="mechanisms-summary" class="tile__v">--</div>
+                  <div class="tile__k">Drive</div>
+                  <div id="drive-summary" class="tile__v">--</div>
                 </div>
                 <div class="tile tile--wide">
                   <div class="tile__k">Last Action</div>
@@ -486,9 +300,9 @@
                 </div>
               </div>
               <div class="checks-block">
-                <div class="checks-block__title">Mechanism Health</div>
-                <div id="mechanism-status-list" class="checks-list">
-                  <div class="checks-list__empty">Waiting for mechanism telemetry.</div>
+                <div class="checks-block__title">Drive Health</div>
+                <div id="drive-status-list" class="checks-list">
+                  <div class="checks-list__empty">Waiting for drive telemetry.</div>
                 </div>
               </div>
               <div class="checks-block">

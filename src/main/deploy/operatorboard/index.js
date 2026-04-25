@@ -22,16 +22,8 @@ const contract = {
   toDashboard: "/OperatorBoard/v1/ToDashboard/",
   keys: {
     requestedState: "RequestedState",
-    autoStateEnable: "AutoStateEnable",
-    playSwerveMusic: "PlaySwerveMusic",
-    stopSwerveMusic: "StopSwerveMusic",
-    swerveMusicVolume: "SwerveMusicVolume",
     rollLogs: "RollLogs",
     cleanLogs: "CleanLogs",
-    requestIntakeDeployRezero: "RequestIntakeDeployRezero",
-    cancelIntakeDeployRezero: "CancelIntakeDeployRezero",
-    requestManualIntakeDeployZeroSeek: "RequestManualIntakeDeployZeroSeek",
-    cancelManualIntakeDeployZeroSeek: "CancelManualIntakeDeployZeroSeek",
     selectedAutoId: "SelectedAutoId",
     autoQueueSpec: "AutoQueueSpec",
     autoQueueCommand: "AutoQueueCommand",
@@ -67,33 +59,15 @@ const contract = {
     ntDiagnosticsState: "NtDiagnosticsState",
     mechanismStatusState: "MechanismStatusState",
     actionTraceState: "ActionTraceState",
-    hasBall: "HasBall",
     dsMode: "DsMode",
     batteryVoltage: "BatteryVoltage",
     brownout: "Brownout",
     alliance: "Alliance",
     matchTime: "MatchTime",
-    hubTimeframe: "HubTimeframe",
-    hubStatusValid: "HubStatusValid",
-    redHubStatus: "RedHubStatus",
-    blueHubStatus: "BlueHubStatus",
-    ourHubStatus: "OurHubStatus",
-    ourHubActive: "OurHubActive",
     autoWinnerAlliance: "AutoWinnerAlliance",
     gameDataRaw: "GameDataRaw",
-    hubRecommendation: "HubRecommendation",
-    turretAtSetpoint: "TurretAtSetpoint",
-    turretMode: "TurretMode",
-    visionStatus: "VisionStatus",
-    visionPoseVisible: "VisionPoseVisible",
-    shootEnabled: "ShootEnabled",
-    intakeRollersHeld: "IntakeRollersHeld",
-    intakeDeployed: "IntakeDeployed",
     teleopOverrideActive: "TeleopOverrideActive",
     driverControllerControlActive: "DriverControllerControlActive",
-    shootReadyLatched: "ShootReadyLatched",
-    intakeDeployRezeroInProgress: "IntakeDeployRezeroInProgress",
-    manualIntakeDeployZeroSeekInProgress: "ManualIntakeDeployZeroSeekInProgress",
   },
 };
 
@@ -150,25 +124,15 @@ const state = {
   autoCheckState: null,
   autoQuickRunState: null,
   ntDiagnosticsState: null,
-  mechanismStatusState: null,
+  driveStatusState: null,
   actionTraceState: null,
-  hasBall: null,
   dsMode: null,
   batteryVoltage: null,
   brownout: null,
   alliance: null,
   matchTime: null,
-  hubTimeframe: null,
-  hubStatusValid: null,
-  redHubStatus: null,
-  blueHubStatus: null,
-  ourHubStatus: null,
-  ourHubActive: null,
   autoWinnerAlliance: null,
   gameDataRaw: null,
-  hubRecommendation: null,
-  turretAtSetpoint: null,
-  turretMode: null,
   sysIdDrivePhase: null,
   sysIdDriveActive: null,
   sysIdDriveLastCompleted: null,
@@ -184,16 +148,8 @@ const state = {
   logCleanLastTimestamp: null,
   logCleanCount: null,
   logCleanDeletedEntries: null,
-  visionStatus: null,
-  visionPoseVisible: null,
-  shootEnabled: null,
-  intakeRollersHeld: null,
-  intakeDeployed: null,
   teleopOverrideActive: null,
   driverControllerControlActive: null,
-  shootReadyLatched: null,
-  intakeDeployRezeroInProgress: null,
-  manualIntakeDeployZeroSeekInProgress: null,
   lastSystemCheckReport: null,
   lastAutoCheckReport: null,
   lastAutoQuickRunReport: null,
@@ -235,16 +191,9 @@ const ui = {
   requestReason: null,
   alliance: null,
   matchTime: null,
-  hubTimeframe: null,
-  ourHub: null,
-  hubRecommendation: null,
-  hubFms: null,
   battery: null,
   brownout: null,
-  hasBall: null,
-  visionPoseVisible: null,
-  visionStatus: null,
-  turretStatus: null,
+  robotPoseTeleop: null,
   sysIdDrive: null,
   sysIdTurn: null,
   sysIdDriveOptions: null,
@@ -259,41 +208,14 @@ const ui = {
   logCleanCount: null,
   logCleanDeleted: null,
   toast: null,
-  stateButtons: [],
-  autoStateButton: null,
-  musicButton: null,
-  musicStopButton: null,
-  musicFile: null,
-  musicUploadButton: null,
-  musicUploadStatus: null,
-  musicVolume: null,
-  musicVolumeValue: null,
-  debugTabMusicButton: null,
-  debugTabMusicStopButton: null,
-  debugTabMusicFile: null,
-  debugTabMusicUploadButton: null,
-  debugTabMusicUploadStatus: null,
-  debugTabMusicVolume: null,
-  debugTabMusicVolumeValue: null,
   rollLogsButton: null,
   cleanLogsButton: null,
   debugTabRollLogsButton: null,
   debugTabCleanLogsButton: null,
   fieldImage: null,
   fieldCanvas: null,
-  driverShootIndicator: null,
-  driverIntakeRollersIndicator: null,
-  driverIntakeDeployIndicator: null,
   teleopOverrideIndicator: null,
   driverControlIndicator: null,
-  intakeRezeroStatus: null,
-  intakeRezeroButton: null,
-  intakeRezeroCancelButton: null,
-  intakeManualZeroSeekStatus: null,
-  intakeManualZeroSeekButton: null,
-  intakeManualZeroSeekCancelButton: null,
-  debugTabIntakeManualZeroSeekButton: null,
-  debugTabIntakeManualZeroSeekCancelButton: null,
   queueActionSelect: null,
   spotGroupFilter: null,
   queueStartButton: null,
@@ -360,12 +282,12 @@ const ui = {
   checksOverall: null,
   checksLastRun: null,
   nextAutoSummary: null,
-  mechanismsSummary: null,
+  driveSummary: null,
   lastActionSummary: null,
   systemChecksList: null,
   autoChecksList: null,
   autoQuickRunList: null,
-  mechanismStatusList: null,
+  driveStatusList: null,
   actionTraceList: null,
   systemsCatalog: null,
   systemsStorageInventory: null,
@@ -407,13 +329,11 @@ const ntClient = new NT4_Client(
 
 window.addEventListener("DOMContentLoaded", async () => {
   cacheUi();
-  updateMusicVolumeUi(Number(ui.musicVolume?.value || ui.debugTabMusicVolume?.value || 70));
   await loadLayoutSpec();
   queueModel.customZones = [];
   queueModel.presets = [];
   queueModel.customSpots = loadCustomSpots();
   setupTabs(queryParams.get("tab"));
-  buildStateButtons();
   setupQueueBuilder();
   setupFieldCanvas();
   renderQueueSteps();
@@ -451,16 +371,9 @@ function cacheUi() {
   ui.requestReason = document.getElementById("request-reason");
   ui.alliance = document.getElementById("alliance");
   ui.matchTime = document.getElementById("match-time");
-  ui.hubTimeframe = document.getElementById("hub-timeframe");
-  ui.ourHub = document.getElementById("our-hub");
-  ui.hubRecommendation = document.getElementById("hub-recommendation");
-  ui.hubFms = document.getElementById("hub-fms");
   ui.battery = document.getElementById("battery");
   ui.brownout = document.getElementById("brownout");
-  ui.hasBall = document.getElementById("has-ball");
-  ui.visionPoseVisible = document.getElementById("vision-pose-visible");
-  ui.visionStatus = document.getElementById("vision-status");
-  ui.turretStatus = document.getElementById("turret-status");
+  ui.robotPoseTeleop = document.getElementById("robot-pose-teleop");
   ui.sysIdDrive = document.getElementById("sysid-drive");
   ui.sysIdTurn = document.getElementById("sysid-turn");
   ui.sysIdDriveOptions = document.getElementById("sysid-drive-options");
@@ -474,47 +387,15 @@ function cacheUi() {
   ui.logCleanLast = document.getElementById("log-clean-last");
   ui.logCleanCount = document.getElementById("log-clean-count");
   ui.logCleanDeleted = document.getElementById("log-clean-deleted");
-  ui.driverShootIndicator = document.getElementById("driver-shoot-indicator");
-  ui.driverIntakeRollersIndicator = document.getElementById("driver-intake-rollers-indicator");
-  ui.driverIntakeDeployIndicator = document.getElementById("driver-intake-deploy-indicator");
   ui.teleopOverrideIndicator = document.getElementById("teleop-override-indicator");
   ui.driverControlIndicator = document.getElementById("driver-control-indicator");
-  ui.intakeRezeroStatus = document.getElementById("intake-rezero-status");
-  ui.intakeManualZeroSeekStatus = document.getElementById("intake-manual-zero-seek-status");
   ui.toast = document.getElementById("toast");
   ui.fieldImage = document.getElementById("field-image");
   ui.fieldCanvas = document.getElementById("field-canvas");
-  ui.autoStateButton = document.getElementById("auto-state-button");
-  ui.musicButton = document.getElementById("music-button");
-  ui.musicStopButton = document.getElementById("music-stop-button");
-  ui.musicFile = document.getElementById("music-file");
-  ui.musicUploadButton = document.getElementById("music-upload-button");
-  ui.musicUploadStatus = document.getElementById("music-upload-status");
-  ui.musicVolume = document.getElementById("music-volume");
-  ui.musicVolumeValue = document.getElementById("music-volume-value");
-  ui.debugTabMusicButton = document.getElementById("debug-tab-music-button");
-  ui.debugTabMusicStopButton = document.getElementById("debug-tab-music-stop-button");
-  ui.debugTabMusicFile = document.getElementById("debug-tab-music-file");
-  ui.debugTabMusicUploadButton = document.getElementById("debug-tab-music-upload-button");
-  ui.debugTabMusicUploadStatus = document.getElementById("debug-tab-music-upload-status");
-  ui.debugTabMusicVolume = document.getElementById("debug-tab-music-volume");
-  ui.debugTabMusicVolumeValue = document.getElementById("debug-tab-music-volume-value");
   ui.rollLogsButton = document.getElementById("roll-logs-button");
   ui.cleanLogsButton = document.getElementById("clean-logs-button");
   ui.debugTabRollLogsButton = document.getElementById("debug-tab-roll-logs-button");
   ui.debugTabCleanLogsButton = document.getElementById("debug-tab-clean-logs-button");
-  ui.intakeRezeroButton = document.getElementById("intake-rezero-button");
-  ui.intakeRezeroCancelButton = document.getElementById("intake-rezero-cancel-button");
-  ui.intakeManualZeroSeekButton = document.getElementById("intake-manual-zero-seek-button");
-  ui.intakeManualZeroSeekCancelButton = document.getElementById(
-    "intake-manual-zero-seek-cancel-button"
-  );
-  ui.debugTabIntakeManualZeroSeekButton = document.getElementById(
-    "debug-tab-intake-manual-zero-seek-button"
-  );
-  ui.debugTabIntakeManualZeroSeekCancelButton = document.getElementById(
-    "debug-tab-intake-manual-zero-seek-cancel-button"
-  );
   ui.queueActionSelect = document.getElementById("queue-action-select");
   ui.spotGroupFilter = document.getElementById("spot-group-filter");
   ui.queueStartButton = document.getElementById("queue-start-button");
@@ -580,12 +461,12 @@ function cacheUi() {
   ui.checksOverall = document.getElementById("checks-overall");
   ui.checksLastRun = document.getElementById("checks-last-run");
   ui.nextAutoSummary = document.getElementById("next-auto-summary");
-  ui.mechanismsSummary = document.getElementById("mechanisms-summary");
+  ui.driveSummary = document.getElementById("drive-summary");
   ui.lastActionSummary = document.getElementById("last-action-summary");
   ui.systemChecksList = document.getElementById("system-checks-list");
   ui.autoChecksList = document.getElementById("auto-checks-list");
   ui.autoQuickRunList = document.getElementById("auto-quick-run-list");
-  ui.mechanismStatusList = document.getElementById("mechanism-status-list");
+  ui.driveStatusList = document.getElementById("drive-status-list");
   ui.actionTraceList = document.getElementById("action-trace-list");
   ui.systemsCatalog = document.getElementById("systems-catalog");
   ui.systemsStorageInventory = document.getElementById("systems-storage-inventory");
@@ -594,45 +475,6 @@ function cacheUi() {
   ui.systemsExportButton = document.getElementById("systems-export-button");
   ui.systemsReloadButton = document.getElementById("systems-reload-button");
 
-  if (ui.autoStateButton) {
-    ui.autoStateButton.addEventListener("click", sendAutoStateEnable);
-  }
-  if (ui.musicButton) {
-    ui.musicButton.addEventListener("click", sendPlaySwerveMusic);
-  }
-  if (ui.debugTabMusicButton) {
-    ui.debugTabMusicButton.addEventListener("click", sendPlaySwerveMusic);
-  }
-  if (ui.musicStopButton) {
-    ui.musicStopButton.addEventListener("click", sendStopSwerveMusic);
-  }
-  if (ui.debugTabMusicStopButton) {
-    ui.debugTabMusicStopButton.addEventListener("click", sendStopSwerveMusic);
-  }
-  if (ui.musicUploadButton) {
-    ui.musicUploadButton.addEventListener("click", () =>
-      uploadMusicFileFrom(ui.musicFile, ui.musicUploadStatus)
-    );
-  }
-  if (ui.debugTabMusicUploadButton) {
-    ui.debugTabMusicUploadButton.addEventListener("click", () =>
-      uploadMusicFileFrom(ui.debugTabMusicFile, ui.debugTabMusicUploadStatus)
-    );
-  }
-  if (ui.musicVolume) {
-    ui.musicVolume.addEventListener("input", () => {
-      const value = Number(ui.musicVolume.value || 0);
-      updateMusicVolumeUi(value);
-      sendSwerveMusicVolume(value / 100.0);
-    });
-  }
-  if (ui.debugTabMusicVolume) {
-    ui.debugTabMusicVolume.addEventListener("input", () => {
-      const value = Number(ui.debugTabMusicVolume.value || 0);
-      updateMusicVolumeUi(value);
-      sendSwerveMusicVolume(value / 100.0);
-    });
-  }
   if (ui.rollLogsButton) {
     ui.rollLogsButton.addEventListener("click", sendRollLogs);
   }
@@ -644,33 +486,6 @@ function cacheUi() {
   }
   if (ui.debugTabCleanLogsButton) {
     ui.debugTabCleanLogsButton.addEventListener("click", sendCleanLogs);
-  }
-  if (ui.intakeRezeroButton) {
-    ui.intakeRezeroButton.addEventListener("click", sendRequestIntakeDeployRezero);
-  }
-  if (ui.intakeRezeroCancelButton) {
-    ui.intakeRezeroCancelButton.addEventListener("click", sendCancelIntakeDeployRezero);
-  }
-  if (ui.intakeManualZeroSeekButton) {
-    ui.intakeManualZeroSeekButton.addEventListener("click", sendRequestManualIntakeDeployZeroSeek);
-  }
-  if (ui.debugTabIntakeManualZeroSeekButton) {
-    ui.debugTabIntakeManualZeroSeekButton.addEventListener(
-      "click",
-      sendRequestManualIntakeDeployZeroSeek
-    );
-  }
-  if (ui.intakeManualZeroSeekCancelButton) {
-    ui.intakeManualZeroSeekCancelButton.addEventListener(
-      "click",
-      sendCancelManualIntakeDeployZeroSeek
-    );
-  }
-  if (ui.debugTabIntakeManualZeroSeekCancelButton) {
-    ui.debugTabIntakeManualZeroSeekCancelButton.addEventListener(
-      "click",
-      sendCancelManualIntakeDeployZeroSeek
-    );
   }
   if (ui.startPoseCaptureButton) {
     ui.startPoseCaptureButton.addEventListener("click", () => {
@@ -761,22 +576,6 @@ function normalizeTabName(tabName) {
   return "teleop";
 }
 
-function buildStateButtons() {
-  const container = document.getElementById("state-buttons");
-  if (!container) return;
-  container.innerHTML = "";
-  ui.stateButtons = STATES.map((name) => {
-    const button = document.createElement("button");
-    button.className = "state-button";
-    button.type = "button";
-    button.dataset.state = name;
-    button.innerText = prettify(name);
-    button.addEventListener("click", () => sendStateRequest(name));
-    container.appendChild(button);
-    return button;
-  });
-}
-
 function setupQueueBuilder() {
   if (ui.queueActionSelect) {
     ui.queueActionSelect.value = queueModel.selectedAction;
@@ -863,50 +662,12 @@ function setupQueueBuilder() {
   }
 }
 
-function sendStateRequest(stateName) {
-  if (!stateName) return;
-  ntClient.addSample(contract.toRobot + contract.keys.requestedState, stateName);
-}
-
-function sendAutoStateEnable() {
-  ntClient.addSample(contract.toRobot + contract.keys.autoStateEnable, true);
-}
-
-function sendPlaySwerveMusic() {
-  ntClient.addSample(contract.toRobot + contract.keys.playSwerveMusic, true);
-}
-
-function sendStopSwerveMusic() {
-  ntClient.addSample(contract.toRobot + contract.keys.stopSwerveMusic, true);
-}
-
-function sendSwerveMusicVolume(value) {
-  if (!Number.isFinite(value)) return;
-  ntClient.addSample(contract.toRobot + contract.keys.swerveMusicVolume, value);
-}
-
 function sendRollLogs() {
   ntClient.addSample(contract.toRobot + contract.keys.rollLogs, true);
 }
 
 function sendCleanLogs() {
   ntClient.addSample(contract.toRobot + contract.keys.cleanLogs, true);
-}
-
-function sendRequestIntakeDeployRezero() {
-  ntClient.addSample(contract.toRobot + contract.keys.requestIntakeDeployRezero, true);
-}
-
-function sendCancelIntakeDeployRezero() {
-  ntClient.addSample(contract.toRobot + contract.keys.cancelIntakeDeployRezero, true);
-}
-
-function sendRequestManualIntakeDeployZeroSeek() {
-  ntClient.addSample(contract.toRobot + contract.keys.requestManualIntakeDeployZeroSeek, true);
-}
-
-function sendCancelManualIntakeDeployZeroSeek() {
-  ntClient.addSample(contract.toRobot + contract.keys.cancelManualIntakeDeployZeroSeek, true);
 }
 
 function sendQueueCommand(command) {
@@ -937,41 +698,6 @@ function publishQueueSpec() {
   renderQueueMeta();
   renderQueueSteps();
   renderField();
-}
-
-async function uploadMusicFileFrom(fileInput, statusElement) {
-  if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
-    setText(statusElement, "Select a .chrp file first");
-    return;
-  }
-  const file = fileInput.files[0];
-  setText(statusElement, "Uploading...");
-  try {
-    const response = await fetch("./music-upload", {
-      method: "POST",
-      headers: { "Content-Type": "application/octet-stream" },
-      body: file,
-    });
-    if (!response.ok) {
-      setText(statusElement, `Upload failed (${response.status})`);
-      return;
-    }
-    setText(statusElement, "Upload complete");
-  } catch (_err) {
-    setText(statusElement, "Upload error");
-  }
-}
-
-function updateMusicVolumeUi(value) {
-  const safeValue = Number.isFinite(value) ? Math.max(0, Math.min(100, value)) : 0;
-  if (ui.musicVolume) {
-    ui.musicVolume.value = String(safeValue);
-  }
-  if (ui.debugTabMusicVolume) {
-    ui.debugTabMusicVolume.value = String(safeValue);
-  }
-  setText(ui.musicVolumeValue, `${safeValue}%`);
-  setText(ui.debugTabMusicVolumeValue, `${safeValue}%`);
 }
 
 async function loadPersistedOperatorBoardData(showToastOnSuccess = false) {
@@ -1141,33 +867,15 @@ function startNetworkTables() {
     contract.keys.ntDiagnosticsState,
     contract.keys.mechanismStatusState,
     contract.keys.actionTraceState,
-    contract.keys.hasBall,
     contract.keys.dsMode,
     contract.keys.batteryVoltage,
     contract.keys.brownout,
     contract.keys.alliance,
     contract.keys.matchTime,
-    contract.keys.hubTimeframe,
-    contract.keys.hubStatusValid,
-    contract.keys.redHubStatus,
-    contract.keys.blueHubStatus,
-    contract.keys.ourHubStatus,
-    contract.keys.ourHubActive,
     contract.keys.autoWinnerAlliance,
     contract.keys.gameDataRaw,
-    contract.keys.hubRecommendation,
-    contract.keys.turretAtSetpoint,
-    contract.keys.turretMode,
-    contract.keys.visionStatus,
-    contract.keys.visionPoseVisible,
-    contract.keys.shootEnabled,
-    contract.keys.intakeRollersHeld,
-    contract.keys.intakeDeployed,
     contract.keys.teleopOverrideActive,
     contract.keys.driverControllerControlActive,
-    contract.keys.shootReadyLatched,
-    contract.keys.intakeDeployRezeroInProgress,
-    contract.keys.manualIntakeDeployZeroSeekInProgress,
     contract.keys.sysIdDrivePhase,
     contract.keys.sysIdDriveActive,
     contract.keys.sysIdDriveLastCompleted,
@@ -1187,23 +895,8 @@ function startNetworkTables() {
 
   ntClient.subscribe(dashboardTopics, false, false, 0.05);
 
-  ntClient.publishTopic(contract.toRobot + contract.keys.requestedState, "string");
-  ntClient.publishTopic(contract.toRobot + contract.keys.autoStateEnable, "boolean");
-  ntClient.publishTopic(contract.toRobot + contract.keys.playSwerveMusic, "boolean");
-  ntClient.publishTopic(contract.toRobot + contract.keys.stopSwerveMusic, "boolean");
-  ntClient.publishTopic(contract.toRobot + contract.keys.swerveMusicVolume, "double");
   ntClient.publishTopic(contract.toRobot + contract.keys.rollLogs, "boolean");
   ntClient.publishTopic(contract.toRobot + contract.keys.cleanLogs, "boolean");
-  ntClient.publishTopic(contract.toRobot + contract.keys.requestIntakeDeployRezero, "boolean");
-  ntClient.publishTopic(contract.toRobot + contract.keys.cancelIntakeDeployRezero, "boolean");
-  ntClient.publishTopic(
-    contract.toRobot + contract.keys.requestManualIntakeDeployZeroSeek,
-    "boolean"
-  );
-  ntClient.publishTopic(
-    contract.toRobot + contract.keys.cancelManualIntakeDeployZeroSeek,
-    "boolean"
-  );
   ntClient.publishTopic(contract.toRobot + contract.keys.selectedAutoId, "string");
   ntClient.publishTopic(contract.toRobot + contract.keys.autoQueueSpec, "string");
   ntClient.publishTopic(contract.toRobot + contract.keys.autoQueueCommand, "string");
@@ -1279,13 +972,10 @@ function handleTopicUpdate(topic, value) {
       state.ntDiagnosticsState = parseJsonObject(value);
       break;
     case contract.toDashboard + contract.keys.mechanismStatusState:
-      state.mechanismStatusState = parseJsonObject(value);
+      state.driveStatusState = parseJsonObject(value);
       break;
     case contract.toDashboard + contract.keys.actionTraceState:
       state.actionTraceState = parseJsonObject(value);
-      break;
-    case contract.toDashboard + contract.keys.hasBall:
-      state.hasBall = !!value;
       break;
     case contract.toDashboard + contract.keys.dsMode:
       state.dsMode = parseString(value);
@@ -1302,38 +992,11 @@ function handleTopicUpdate(topic, value) {
     case contract.toDashboard + contract.keys.matchTime:
       state.matchTime = Number.isFinite(value) ? value : null;
       break;
-    case contract.toDashboard + contract.keys.hubTimeframe:
-      state.hubTimeframe = parseString(value);
-      break;
-    case contract.toDashboard + contract.keys.hubStatusValid:
-      state.hubStatusValid = !!value;
-      break;
-    case contract.toDashboard + contract.keys.redHubStatus:
-      state.redHubStatus = parseString(value);
-      break;
-    case contract.toDashboard + contract.keys.blueHubStatus:
-      state.blueHubStatus = parseString(value);
-      break;
-    case contract.toDashboard + contract.keys.ourHubStatus:
-      state.ourHubStatus = parseString(value);
-      break;
-    case contract.toDashboard + contract.keys.ourHubActive:
-      state.ourHubActive = !!value;
-      break;
     case contract.toDashboard + contract.keys.autoWinnerAlliance:
       state.autoWinnerAlliance = parseString(value);
       break;
     case contract.toDashboard + contract.keys.gameDataRaw:
       state.gameDataRaw = parseString(value);
-      break;
-    case contract.toDashboard + contract.keys.hubRecommendation:
-      state.hubRecommendation = parseString(value);
-      break;
-    case contract.toDashboard + contract.keys.turretAtSetpoint:
-      state.turretAtSetpoint = !!value;
-      break;
-    case contract.toDashboard + contract.keys.turretMode:
-      state.turretMode = parseString(value);
       break;
     case contract.toDashboard + contract.keys.sysIdDrivePhase:
       state.sysIdDrivePhase = parseString(value);
@@ -1412,35 +1075,11 @@ function handleTopicUpdate(topic, value) {
     case contract.toDashboard + contract.keys.logCleanDeletedEntries:
       state.logCleanDeletedEntries = Number.isFinite(value) ? value : null;
       break;
-    case contract.toDashboard + contract.keys.visionStatus:
-      state.visionStatus = parseString(value);
-      break;
-    case contract.toDashboard + contract.keys.visionPoseVisible:
-      state.visionPoseVisible = !!value;
-      break;
-    case contract.toDashboard + contract.keys.shootEnabled:
-      state.shootEnabled = !!value;
-      break;
-    case contract.toDashboard + contract.keys.intakeRollersHeld:
-      state.intakeRollersHeld = !!value;
-      break;
-    case contract.toDashboard + contract.keys.intakeDeployed:
-      state.intakeDeployed = !!value;
-      break;
     case contract.toDashboard + contract.keys.teleopOverrideActive:
       state.teleopOverrideActive = !!value;
       break;
     case contract.toDashboard + contract.keys.driverControllerControlActive:
       state.driverControllerControlActive = !!value;
-      break;
-    case contract.toDashboard + contract.keys.shootReadyLatched:
-      state.shootReadyLatched = !!value;
-      break;
-    case contract.toDashboard + contract.keys.intakeDeployRezeroInProgress:
-      state.intakeDeployRezeroInProgress = !!value;
-      break;
-    case contract.toDashboard + contract.keys.manualIntakeDeployZeroSeekInProgress:
-      state.manualIntakeDeployZeroSeekInProgress = !!value;
       break;
     default:
       break;
@@ -1450,8 +1089,6 @@ function handleTopicUpdate(topic, value) {
 function render() {
   const effectiveDsMode = previewOverrides.dsMode ?? state.dsMode;
   const effectiveMatchTime = previewOverrides.matchTime ?? state.matchTime;
-  const effectiveVisionPoseVisible =
-    previewOverrides.visionPoseVisible ?? state.visionPoseVisible;
 
   setText(ui.requestedState, state.requestedState || "--");
   setText(ui.currentState, state.currentState || "--");
@@ -1462,41 +1099,8 @@ function render() {
     setText(ui.requestStatus, state.requestAccepted ? "ACCEPTED" : "REJECTED");
   }
   setText(ui.requestReason, state.requestReason || "--");
-  applyDriverIndicator(ui.driverShootIndicator, state.shootEnabled);
-  applyDriverIndicator(ui.driverIntakeRollersIndicator, state.intakeRollersHeld);
-  applyDriverIndicator(ui.driverIntakeDeployIndicator, state.intakeDeployed);
   applyDriverIndicator(ui.teleopOverrideIndicator, state.teleopOverrideActive);
   applyDriverIndicator(ui.driverControlIndicator, state.driverControllerControlActive);
-
-  setText(
-    ui.intakeRezeroStatus,
-    state.intakeDeployRezeroInProgress === null
-      ? "--"
-      : state.intakeDeployRezeroInProgress
-        ? "IN PROGRESS"
-        : "IDLE"
-  );
-  if (ui.intakeRezeroStatus) {
-    ui.intakeRezeroStatus.classList.remove("kv__v--ok", "kv__v--bad", "kv__v--warn");
-    ui.intakeRezeroStatus.classList.add(
-      state.intakeDeployRezeroInProgress ? "kv__v--warn" : "kv__v--ok"
-    );
-  }
-
-  setText(
-    ui.intakeManualZeroSeekStatus,
-    state.manualIntakeDeployZeroSeekInProgress === null
-      ? "--"
-      : state.manualIntakeDeployZeroSeekInProgress
-        ? "RUNNING"
-        : "IDLE"
-  );
-  if (ui.intakeManualZeroSeekStatus) {
-    ui.intakeManualZeroSeekStatus.classList.remove("kv__v--ok", "kv__v--bad", "kv__v--warn");
-    ui.intakeManualZeroSeekStatus.classList.add(
-      state.manualIntakeDeployZeroSeekInProgress ? "kv__v--warn" : "kv__v--ok"
-    );
-  }
 
   setText(ui.alliance, state.alliance || "--");
   setText(ui.matchTime, formatMatchTime(effectiveMatchTime));
@@ -1507,46 +1111,10 @@ function render() {
       effectiveMatchTime <= 30.0 &&
       effectiveMatchTime > 0.0
   );
-  setText(ui.hubTimeframe, state.hubTimeframe || "--");
 
-  const ourHubText = formatOurHubStatus(
-    state.ourHubStatus,
-    state.ourHubActive,
-    state.hubStatusValid
-  );
-  setText(ui.ourHub, ourHubText);
-  applyStatusClass(ui.ourHub, state.ourHubActive, state.hubStatusValid);
-
-  setText(ui.hubRecommendation, state.hubRecommendation || "--");
-  applyRecommendationClass(ui.hubRecommendation, state.hubRecommendation);
-
-  setText(ui.hubFms, formatHubFms(state));
+  setText(ui.robotPoseTeleop, formatPose(state.robotPose, true));
   setText(ui.battery, formatVoltage(state.batteryVoltage));
   setText(ui.brownout, state.brownout ? "YES" : "NO");
-  setText(ui.hasBall, state.hasBall ? "YES" : "NO");
-
-  if (ui.visionPoseVisible) {
-    if (effectiveVisionPoseVisible === null) {
-      setText(ui.visionPoseVisible, "--");
-      ui.visionPoseVisible.classList.remove("is-on", "is-off");
-    } else {
-      const hasPose = !!effectiveVisionPoseVisible;
-      setText(ui.visionPoseVisible, hasPose ? "TRUE" : "FALSE");
-      ui.visionPoseVisible.classList.toggle("is-on", hasPose);
-      ui.visionPoseVisible.classList.toggle("is-off", !hasPose);
-    }
-  }
-
-  setText(ui.visionStatus, state.visionStatus || "--");
-
-  const turret = state.turretMode ? state.turretMode : "UNAVAILABLE";
-  const turretExtra =
-    state.turretAtSetpoint === null
-      ? ""
-      : state.turretAtSetpoint
-        ? " (AT GOAL)"
-        : " (MOVING)";
-  setText(ui.turretStatus, turret + turretExtra);
 
   const driveSysIdText = formatSysId(
     state.sysIdDrivePhase,
@@ -1605,12 +1173,6 @@ function render() {
   );
   applyLogRollClass(ui.logCleanStatus, state.logCleanStatus);
 
-  ui.stateButtons.forEach((button) => {
-    const name = button.dataset.state;
-    button.classList.toggle("is-requested", name && name === state.requestedState);
-    button.classList.toggle("is-current", name && name === state.currentState);
-  });
-
   renderAlerts();
   renderReadiness();
   renderQueueStatus();
@@ -1667,7 +1229,7 @@ function renderReadiness() {
   const autoReport = normalizeBackendCheckReport(state.autoCheckState) || state.lastAutoCheckReport;
   const quickRunReport =
     normalizeBackendCheckReport(state.autoQuickRunState) || state.lastAutoQuickRunReport;
-  const mechanismReport = normalizeMechanismStatusReport(state.mechanismStatusState);
+  const driveReport = normalizeDriveStatusReport(state.driveStatusState);
   const actionTraceReport = normalizeActionTraceReport(state.actionTraceState);
 
   renderCheckList(ui.systemChecksList, systemReport, "Run checks to snapshot robot readiness.");
@@ -1677,11 +1239,7 @@ function renderReadiness() {
     quickRunReport,
     "Run quick validation to build every staged auto step without executing it."
   );
-  renderCheckList(
-    ui.mechanismStatusList,
-    mechanismReport,
-    "Waiting for mechanism telemetry."
-  );
+  renderCheckList(ui.driveStatusList, driveReport, "Waiting for drive telemetry.");
   renderCheckList(
     ui.actionTraceList,
     actionTraceReport,
@@ -1693,10 +1251,10 @@ function renderReadiness() {
   setText(ui.checksLastRun, headlineReport ? formatCheckTimestamp(headlineReport.timestamp) : "--");
   applyCheckHeadlineClass(ui.checksOverall, headlineReport ? headlineReport.status : "idle");
   setText(ui.nextAutoSummary, formatNextAutoSummary(queueState));
-  setText(ui.mechanismsSummary, mechanismReport ? mechanismReport.summary : "--");
+  setText(ui.driveSummary, driveReport ? driveReport.summary : "--");
   applyCheckHeadlineClass(
-    ui.mechanismsSummary,
-    mechanismReport ? mechanismReport.status : "idle"
+    ui.driveSummary,
+    driveReport ? driveReport.status : "idle"
   );
   setText(ui.lastActionSummary, formatActionTraceSummary(state.actionTraceState));
   applyCheckHeadlineClass(
@@ -1765,48 +1323,6 @@ function evaluateChecks(mode) {
     )
   );
 
-  items.push(
-    checkItem(
-      "Vision pose updates",
-      state.visionStatus === "DISABLED"
-        ? "fail"
-        : state.visionPoseVisible
-          ? "pass"
-          : "warn",
-      state.visionStatus === "DISABLED"
-        ? "Vision subsystem disabled."
-        : state.visionPoseVisible
-          ? "At least one camera currently has a pose."
-          : "No accepted pose visible right now."
-    )
-  );
-
-  items.push(
-    checkItem(
-      "Turret readiness",
-      state.turretMode === "UNAVAILABLE"
-        ? "fail"
-        : state.turretAtSetpoint
-          ? "pass"
-          : "warn",
-      state.turretMode === "UNAVAILABLE"
-        ? "Turret subsystem unavailable."
-        : `${state.turretMode || "UNKNOWN"}${state.turretAtSetpoint ? " and at setpoint." : " still moving."}`
-    )
-  );
-
-  items.push(
-    checkItem(
-      "Mechanism zeroing",
-      state.intakeDeployRezeroInProgress || state.manualIntakeDeployZeroSeekInProgress ? "warn" : "pass",
-      state.intakeDeployRezeroInProgress
-        ? "Intake deploy rezero is in progress."
-        : state.manualIntakeDeployZeroSeekInProgress
-          ? "Manual intake zero seek is running."
-          : "No intake zeroing process active."
-    )
-  );
-
   if (mode === "system") {
     items.push(
       checkItem(
@@ -1817,13 +1333,6 @@ function evaluateChecks(mode) {
           : state.requestAccepted === true
             ? "Last dashboard request was accepted."
             : "No dashboard request status has been observed yet."
-      )
-    );
-    items.push(
-      checkItem(
-        "Shoot gate",
-        state.shootEnabled ? "pass" : "warn",
-        state.shootEnabled ? "Shoot gate currently enabled." : "Shoot gate currently disabled."
       )
     );
   }
@@ -1884,7 +1393,7 @@ function computeAlerts() {
   const queueState = getEffectiveQueueState();
   const alerts = [];
   const stale = Date.now() - lastAnyData > STALE_MS;
-  const mechanismReport = normalizeMechanismStatusReport(state.mechanismStatusState);
+  const driveReport = normalizeDriveStatusReport(state.driveStatusState);
   const actionTraceReport = normalizeActionTraceReport(state.actionTraceState);
   const quickRunReport = normalizeBackendCheckReport(state.autoQuickRunState);
 
@@ -1902,19 +1411,10 @@ function computeAlerts() {
   if (state.requestAccepted === false && state.requestReason) {
     alerts.push({ severity: "bad", message: `request rejected: ${state.requestReason}` });
   }
-  if (state.intakeDeployRezeroInProgress) {
-    alerts.push({ severity: "warn", message: "intake rezero running" });
-  }
-  if (state.manualIntakeDeployZeroSeekInProgress) {
-    alerts.push({ severity: "warn", message: "manual zero seek running" });
-  }
   if (queueState.phase === "ERROR") {
     alerts.push({ severity: "bad", message: "auto selection error" });
   } else if (!queueState.steps || queueState.steps.length === 0) {
     alerts.push({ severity: "warn", message: "no auto selected" });
-  }
-  if (state.visionStatus === "DISABLED") {
-    alerts.push({ severity: "warn", message: "vision disabled" });
   }
   if (state.ntDiagnosticsState && Number.isFinite(state.ntDiagnosticsState.sampledPublishBytesPerSec)) {
     const sampledBytesPerSec = state.ntDiagnosticsState.sampledPublishBytesPerSec;
@@ -1942,10 +1442,10 @@ function computeAlerts() {
       alerts.push({ severity: "bad", message: "can errors active" });
     }
   }
-  if (mechanismReport && mechanismReport.status === "fail") {
-    alerts.push({ severity: "bad", message: `mechanisms: ${mechanismReport.summary}` });
-  } else if (mechanismReport && mechanismReport.status === "warn") {
-    alerts.push({ severity: "warn", message: `mechanisms: ${mechanismReport.summary}` });
+  if (driveReport && driveReport.status === "fail") {
+    alerts.push({ severity: "bad", message: `drive: ${driveReport.summary}` });
+  } else if (driveReport && driveReport.status === "warn") {
+    alerts.push({ severity: "warn", message: `drive: ${driveReport.summary}` });
   }
   if (actionTraceReport && actionTraceReport.status === "fail") {
     alerts.push({ severity: "bad", message: "last dashboard action failed" });
@@ -1992,7 +1492,7 @@ function normalizeBackendCheckReport(report) {
   };
 }
 
-function normalizeMechanismStatusReport(report) {
+function normalizeDriveStatusReport(report) {
   if (!report || !Array.isArray(report.items)) {
     return null;
   }
@@ -2015,7 +1515,7 @@ function normalizeMechanismStatusReport(report) {
   });
   return {
     timestamp: Number.isFinite(report.timestampSec) ? report.timestampSec * 1000 : Date.now(),
-    mode: "mechanisms",
+    mode: "drive",
     status: summarizeCheckStatus(items.map((item) => item.status)),
     summary: parseString(report.summary) || "UNKNOWN",
     items,
@@ -4064,42 +3564,6 @@ function setChip(el, text, status) {
   el.innerText = text;
 }
 
-function formatOurHubStatus(ourHubStatus, ourHubActive, hubStatusValid) {
-  if (!hubStatusValid) {
-    return ourHubStatus || "UNKNOWN";
-  }
-  if (ourHubStatus) {
-    return ourHubStatus;
-  }
-  return ourHubActive ? "ACTIVE" : "INACTIVE";
-}
-
-function formatHubFms(currentState) {
-  const raw = (currentState.gameDataRaw || "").trim();
-  const winner = currentState.autoWinnerAlliance || "UNKNOWN";
-  const red = currentState.redHubStatus || "UNKNOWN";
-  const blue = currentState.blueHubStatus || "UNKNOWN";
-
-  const parts = [];
-  parts.push(`AutoWinner=${winner}`);
-  parts.push(`Red=${red}`);
-  parts.push(`Blue=${blue}`);
-  parts.push(`Raw=${raw || "(empty)"}`);
-  return parts.join("  ");
-}
-
-function applyStatusClass(el, isActive, hubStatusValid) {
-  if (!el) return;
-  el.classList.remove("tile__v--ok", "tile__v--bad", "tile__v--warn");
-  if (!hubStatusValid) {
-    el.classList.add("tile__v--warn");
-  } else if (isActive) {
-    el.classList.add("tile__v--ok");
-  } else {
-    el.classList.add("tile__v--bad");
-  }
-}
-
 function applyDriverIndicator(element, value) {
   if (!element) return;
   if (value === null) {
@@ -4111,19 +3575,6 @@ function applyDriverIndicator(element, value) {
   setText(element, isOn ? "ON" : "OFF");
   element.classList.toggle("is-on", isOn);
   element.classList.toggle("is-off", !isOn);
-}
-
-function applyRecommendationClass(el, recommendation) {
-  if (!el) return;
-  el.classList.remove("tile__v--ok", "tile__v--bad", "tile__v--warn");
-  const token = (recommendation || "").toUpperCase();
-  if (token.includes("SCORE")) {
-    el.classList.add("tile__v--ok");
-  } else if (token.includes("CHECK") || token.includes("UNKNOWN")) {
-    el.classList.add("tile__v--warn");
-  } else if (token.includes("COLLECT") || token.includes("DEFEND")) {
-    el.classList.add("tile__v--bad");
-  }
 }
 
 function applySysIdClass(el, phase, active) {
@@ -5244,22 +4695,13 @@ function round(value, digits) {
 function resolvePreviewOverrides(params) {
   const demo = parseString(params.get("demo"))?.toLowerCase() || null;
   if (demo === "endgame") {
-    return { dsMode: "TELEOP", matchTime: 29.5, visionPoseVisible: true };
+    return { dsMode: "TELEOP", matchTime: 29.5 };
   }
 
   return {
     dsMode: parseString(params.get("dsMode"))?.toUpperCase() || null,
     matchTime: parseQueryNumber(params.get("matchTime")),
-    visionPoseVisible: parseQueryBoolean(params.get("visionPoseVisible")),
   };
-}
-
-function parseQueryBoolean(value) {
-  const token = parseString(value)?.toLowerCase();
-  if (token === null) return null;
-  if (token === "true" || token === "1" || token === "yes" || token === "on") return true;
-  if (token === "false" || token === "0" || token === "no" || token === "off") return false;
-  return null;
 }
 
 function parseQueryNumber(value) {
