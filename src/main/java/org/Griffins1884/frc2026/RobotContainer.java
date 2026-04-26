@@ -3,6 +3,7 @@ package org.Griffins1884.frc2026;
 import static org.Griffins1884.frc2026.Config.Controllers.getDriverController;
 import static org.Griffins1884.frc2026.Config.Subsystems.AUTONOMOUS_ENABLED;
 import static org.Griffins1884.frc2026.Config.Subsystems.DRIVETRAIN_ENABLED;
+import static org.Griffins1884.frc2026.Config.Subsystems.LEDS_ENABLED;
 import static org.Griffins1884.frc2026.Config.Subsystems.TURRET_ENABLED;
 import static org.Griffins1884.frc2026.Config.Subsystems.VISION_ENABLED;
 import static org.Griffins1884.frc2026.GlobalConstants.MODE;
@@ -34,7 +35,6 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import java.io.IOException;
 import java.util.Optional;
 import org.Griffins1884.frc2026.GlobalConstants.RobotMode;
-import org.Griffins1884.frc2026.GlobalConstants.RobotType;
 import org.Griffins1884.frc2026.OI.DriverMap;
 import org.Griffins1884.frc2026.commands.AutoCommands;
 import org.Griffins1884.frc2026.commands.DriveCommands;
@@ -44,6 +44,7 @@ import org.Griffins1884.frc2026.simulation.maple.MapleArenaSetup;
 import org.Griffins1884.frc2026.simulation.maple.Rebuilt2026FieldModel;
 import org.Griffins1884.frc2026.simulation.visualization.RobotStateVisualizer;
 import org.Griffins1884.frc2026.subsystems.Superstructure;
+import org.Griffins1884.frc2026.subsystems.leds.LEDSubsystem;
 import org.Griffins1884.frc2026.subsystems.objectivetracker.OperatorBoardIOServer;
 import org.Griffins1884.frc2026.subsystems.objectivetracker.OperatorBoardTracker;
 import org.Griffins1884.frc2026.subsystems.shooter.*;
@@ -76,6 +77,7 @@ public class RobotContainer {
 
   // Subsystems
   private final SwerveSubsystem drive;
+  private final LEDSubsystem leds;
   private CommandableDriveSimulationAdapter driveSimulation;
   private TerrainAwareSwerveSimulation mapleDriveSimulation;
   private final TurretSubsystem turret;
@@ -226,6 +228,8 @@ public class RobotContainer {
             default -> new Vision(drive, new VisionIO() {}, new VisionIO() {});
           };
     } else vision = null;
+
+    leds = LEDS_ENABLED ? new LEDSubsystem() : null;
 
     if (Config.Subsystems.WEBUI_ENABLED) {
       operatorBoard =
@@ -392,22 +396,37 @@ public class RobotContainer {
                       drive)
                   .ignoringDisable(true));
     }
+
+    drive.setDefaultCommand(
+        DriveCommands.joystickDriveCommand(
+            drive, driver.getYAxis(), driver.getXAxis(), driver.getRotAxis()));
+
+    leds.setDefaultCommand(
+        leds.allianceColor(() -> DriverStation.getAlliance().get().equals(Alliance.Red))
+            .repeatedly());
+
     driver
-        .shootToggle()
-        .onTrue(Commands.runOnce(() -> superstructure.setShootEnabled(true)))
-        .onFalse(Commands.runOnce(() -> superstructure.setShootEnabled(false)));
-    if (GlobalConstants.ROBOT != RobotType.DBOT && GlobalConstants.ROBOT != RobotType.ECLAIR) {
-      driver
-          .intakeRollersHold()
-          .onTrue(Commands.runOnce(() -> superstructure.setIntakeRollersHeld(true)))
-          .onFalse(Commands.runOnce(() -> superstructure.setIntakeRollersHeld(false)));
-      driver.intakeDeployToggle().onTrue(Commands.runOnce(superstructure::toggleIntakeDeploy));
-    } else {
-      driver
-          .intakeDeployToggle()
-          .onTrue(Commands.runOnce(() -> superstructure.setIntakeDeployed(true)))
-          .onFalse(Commands.runOnce(() -> superstructure.setIntakeDeployed(false)));
-    }
+        .alignWithBall()
+        .whileTrue(
+            DriveCommands.joystickDriveRobotRelativeFlippedCommand(
+                drive, driver.getYAxis(), driver.getXAxis(), driver.getRotAxis()));
+
+    driver
+        .resetOdometry()
+        .onTrue(
+            Commands.runOnce(
+                    () -> {
+                      Optional<Alliance> alliance = DriverStation.getAlliance();
+                      if (alliance.isEmpty()) {
+                        Logger.recordOutput("Odometry/AllianceZero/Failed", true);
+                        Logger.recordOutput("Odometry/AllianceZero/Reason", "ALLIANCE_UNKNOWN");
+                        return;
+                      }
+                      drive.zeroGyroAndOdometryToAllianceWall(alliance.get());
+                    },
+                    drive)
+                .andThen(leds.chase_red().withTimeout(2.0)) // todo make flicker
+                .ignoringDisable(true));
   }
 
   private void configurePathPlannerAutonomous() {

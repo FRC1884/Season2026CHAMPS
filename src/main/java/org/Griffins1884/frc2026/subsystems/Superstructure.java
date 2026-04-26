@@ -17,7 +17,6 @@ import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 import lombok.Getter;
 import lombok.Setter;
-import org.Griffins1884.frc2026.Config;
 import org.Griffins1884.frc2026.GlobalConstants;
 import org.Griffins1884.frc2026.commands.ShooterCommands;
 import org.Griffins1884.frc2026.commands.TurretCommands;
@@ -28,9 +27,6 @@ import org.Griffins1884.frc2026.subsystems.groups.Rollers;
 import org.Griffins1884.frc2026.subsystems.indexer.IndexerSubsystem.IndexerGoal;
 import org.Griffins1884.frc2026.subsystems.intake.IntakePivotSubsystem.IntakePivotGoal;
 import org.Griffins1884.frc2026.subsystems.intake.IntakeSubsystem.IntakeGoal;
-import org.Griffins1884.frc2026.subsystems.leds.LEDIOPWM;
-import org.Griffins1884.frc2026.subsystems.leds.LEDIOSim;
-import org.Griffins1884.frc2026.subsystems.leds.LEDSubsystem;
 import org.Griffins1884.frc2026.subsystems.shooter.ShooterConstants;
 import org.Griffins1884.frc2026.subsystems.shooter.ShooterPivotSubsystem.ShooterPivotGoal;
 import org.Griffins1884.frc2026.subsystems.swerve.SwerveSubsystem;
@@ -97,12 +93,6 @@ public class Superstructure extends SubsystemBase {
   @Getter private boolean intakeStowRollerActive = false;
   @Getter private boolean shootReadyLatched = false;
   @Getter private boolean turretReadyForFeed = false;
-  private final LEDSubsystem leds =
-      Config.Subsystems.LEDS_ENABLED
-          ? (MODE == GlobalConstants.RobotMode.REAL
-              ? new LEDSubsystem(new LEDIOPWM())
-              : new LEDSubsystem(new LEDIOSim()))
-          : null;
 
   private IntakeGoal lastIntakeGoal = IntakeGoal.IDLING;
   private IndexerGoal lastIndexerGoal = IndexerGoal.IDLING;
@@ -121,15 +111,6 @@ public class Superstructure extends SubsystemBase {
   public Superstructure(SwerveSubsystem drive) {
     this.drive = drive;
     configureStateChooser();
-    if (LEDS_ENABLED) {
-      leds.setDefaultCommand(
-          leds.ledCommand(
-              DriverStation::isEnabled,
-              () -> drive != null ? drive.getPose() : null,
-              this::getAutoStartPose,
-              this::getCurrentState,
-              this::hasBall));
-    }
   }
 
   public Command setSuperStateCmd(SuperState stateRequest) {
@@ -1078,11 +1059,7 @@ public class Superstructure extends SubsystemBase {
         .withName(name + "SysIdRoutine");
   }
 
-  public void close() {
-    if (leds != null) {
-      leds.close();
-    }
-  }
+  public void close() {}
 
   public SuperstructureOutcome getOutcomeSnapshot() {
     return new SuperstructureOutcome(
