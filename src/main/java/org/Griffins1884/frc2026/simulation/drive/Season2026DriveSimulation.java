@@ -110,19 +110,22 @@ public final class Season2026DriveSimulation {
   }
 
   public SupportSnapshot supportSnapshot() {
-    var support = terrainAware.getSupportDiagnostics();
+    // var support = terrainAware.getSupportDiagnostics();
     return new SupportSnapshot(
-        support.supportPlaneHeightMeters(),
-        support.chassisZAboveTerrainMeters(),
-        support.bodyBottomToTerrainGapMeters(),
-        support.terrainHeightMeters(),
-        support.bodySupported(),
-        support.supportContactCount(),
-        support.frontLeftSupported(),
-        support.frontRightSupported(),
-        support.rearLeftSupported(),
-        support.rearRightSupported(),
-        support.actualAirborne());
+        // 4d b i 5b
+        0, 0, 0, 0, false, 0, false, false, false, false, false
+        // support.supportPlaneHeightMeters(),
+        // support.chassisZAboveTerrainMeters(),
+        // support.bodyBottomToTerrainGapMeters(),
+        // support.terrainHeightMeters(),
+        // support.bodySupported(),
+        // support.supportContactCount(),
+        // support.frontLeftSupported(),
+        // support.frontRightSupported(),
+        // support.rearLeftSupported(),
+        // support.rearRightSupported(),
+        // support.actualAirborne()
+        );
   }
 
   public ValidationSnapshot validationSnapshot() {

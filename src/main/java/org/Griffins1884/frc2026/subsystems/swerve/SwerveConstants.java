@@ -63,10 +63,10 @@ public final class SwerveConstants {
 
   public static final Translation2d[] MODULE_TRANSLATIONS =
       new Translation2d[] {
-        new Translation2d(TRACK_WIDTH / 2.0, WHEEL_BASE / 2.0),
-        new Translation2d(TRACK_WIDTH / 2.0, -WHEEL_BASE / 2.0),
-        new Translation2d(-TRACK_WIDTH / 2.0, WHEEL_BASE / 2.0),
-        new Translation2d(-TRACK_WIDTH / 2.0, -WHEEL_BASE / 2.0)
+        new Translation2d(WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0),
+        new Translation2d(WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0),
+        new Translation2d(-WHEEL_BASE / 2.0, TRACK_WIDTH / 2.0),
+        new Translation2d(-WHEEL_BASE / 2.0, -TRACK_WIDTH / 2.0)
       };
 
   /** Meters */
@@ -90,19 +90,19 @@ public final class SwerveConstants {
       boolean encoderInverted) {}
 
   // TODO: Replace all ECLAIR CAN IDs with the real hardware assignments.
-  private static final int ECLAIR_PIGEON_ID = -1;
-  private static final int ECLAIR_FRD_ID = -1;
-  private static final int ECLAIR_FRR_ID = -1;
-  private static final int ECLAIR_FRR_CANCODER_ID = -1;
-  private static final int ECLAIR_FLD_ID = -1;
-  private static final int ECLAIR_FLR_ID = -1;
-  private static final int ECLAIR_FLR_CANCODER_ID = -1;
-  private static final int ECLAIR_BRD_ID = -1;
-  private static final int ECLAIR_BRR_ID = -1;
-  private static final int ECLAIR_BRR_CANCODER_ID = -1;
-  private static final int ECLAIR_BLD_ID = -1;
-  private static final int ECLAIR_BLR_ID = -1;
-  private static final int ECLAIR_BLR_CANCODER_ID = -1;
+  private static final int ECLAIR_PIGEON_ID = 60;
+  private static final int ECLAIR_FRD_ID = 11;
+  private static final int ECLAIR_FRR_ID = 10;
+  private static final int ECLAIR_FRR_CANCODER_ID = 3;
+  private static final int ECLAIR_FLD_ID = 13;
+  private static final int ECLAIR_FLR_ID = 12;
+  private static final int ECLAIR_FLR_CANCODER_ID = 4;
+  private static final int ECLAIR_BRD_ID = 16;
+  private static final int ECLAIR_BRR_ID = 17;
+  private static final int ECLAIR_BRR_CANCODER_ID = 6;
+  private static final int ECLAIR_BLD_ID = 14;
+  private static final int ECLAIR_BLR_ID = 15;
+  private static final int ECLAIR_BLR_CANCODER_ID = 5;
 
   static final int PIGEON_ID =
       switch (ROBOT) {
@@ -181,10 +181,14 @@ public final class SwerveConstants {
       Rotation2d.fromRadians(-0.290283203125 * (2 * PI));
 
   // TODO: Measure the absolute encoder zero offsets for ECLAIR.
-  private static final Rotation2d ECLAIR_FLR_ZERO = Rotation2d.fromRadians(0.0);
-  private static final Rotation2d ECLAIR_FRR_ZERO = Rotation2d.fromRadians(0.0);
-  private static final Rotation2d ECLAIR_BLR_ZERO = Rotation2d.fromRadians(0.0);
-  private static final Rotation2d ECLAIR_BRR_ZERO = Rotation2d.fromRadians(0.0);
+  private static final Rotation2d ECLAIR_FLR_ZERO =
+      Rotation2d.fromRadians(0.08154296875 * (2 * PI));
+  private static final Rotation2d ECLAIR_FRR_ZERO =
+      Rotation2d.fromRadians(-0.2451171875 * (2 * PI));
+  private static final Rotation2d ECLAIR_BLR_ZERO =
+      Rotation2d.fromRadians(0.297607421875 * (2 * PI));
+  private static final Rotation2d ECLAIR_BRR_ZERO =
+      Rotation2d.fromRadians(0.43006640625 * (2 * PI));
 
   private static final Rotation2d FLR_ZERO =
       switch (ROBOT) {
@@ -338,8 +342,6 @@ public final class SwerveConstants {
 
   static final int KRAKEN_ROTATOR_CURRENT_LIMIT_AMPS = 20;
 
-  static final boolean ROTATOR_INVERTED = false;
-
   // Rotator PID configuration
   static final Gains ROTATOR_GAINS =
       switch (ROBOT) {
@@ -354,9 +356,9 @@ public final class SwerveConstants {
       };
 
   /** CanBus */
-  static final boolean canivore = true;
+  static final boolean canivore = false;
 
-  static final CANBus canBus = new CANBus("DriveTrain");
+  static final CANBus canBus = new CANBus("rio");
 
   /** Radians */
   static final double ROTATOR_PID_MIN_INPUT = 0;

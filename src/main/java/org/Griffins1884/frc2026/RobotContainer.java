@@ -3,6 +3,7 @@ package org.Griffins1884.frc2026;
 import static org.Griffins1884.frc2026.Config.Controllers.getDriverController;
 import static org.Griffins1884.frc2026.Config.Subsystems.AUTONOMOUS_ENABLED;
 import static org.Griffins1884.frc2026.Config.Subsystems.DRIVETRAIN_ENABLED;
+import static org.Griffins1884.frc2026.Config.Subsystems.LEDS_ENABLED;
 import static org.Griffins1884.frc2026.GlobalConstants.MODE;
 import static org.Griffins1884.frc2026.subsystems.swerve.SwerveConstants.BACK_LEFT;
 import static org.Griffins1884.frc2026.subsystems.swerve.SwerveConstants.BACK_RIGHT;
@@ -37,6 +38,7 @@ import org.Griffins1884.frc2026.simulation.drive.Season2026SwerveCorner;
 import org.Griffins1884.frc2026.simulation.maple.MapleArenaSetup;
 import org.Griffins1884.frc2026.simulation.maple.Rebuilt2026FieldModel;
 import org.Griffins1884.frc2026.simulation.visualization.RobotStateVisualizer;
+import org.Griffins1884.frc2026.subsystems.leds.LEDSubsystem;
 import org.Griffins1884.frc2026.subsystems.objectivetracker.OperatorBoardIOServer;
 import org.Griffins1884.frc2026.subsystems.objectivetracker.OperatorBoardTracker;
 import org.Griffins1884.frc2026.subsystems.swerve.GyroIO;
@@ -56,6 +58,7 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 public class RobotContainer {
   private final SwerveSubsystem drive;
+  private final LEDSubsystem leds;
   private Season2026DriveSimulation driveSimulation;
   private final OperatorBoardTracker operatorBoard;
   private final DriverMap driver = getDriverController();
@@ -70,6 +73,8 @@ public class RobotContainer {
     characterizationChooser.addDefaultOption("None", characterizationIdleCommand);
 
     drive = DRIVETRAIN_ENABLED ? buildDrive() : null;
+
+    leds = LEDS_ENABLED ? new LEDSubsystem() : null;
 
     if (Config.Subsystems.WEBUI_ENABLED) {
       operatorBoard = new OperatorBoardTracker(new OperatorBoardIOServer(), drive);
@@ -223,6 +228,10 @@ public class RobotContainer {
         DriveCommands.joystickDriveCommand(
             drive, driver.getYAxis(), driver.getXAxis(), driver.getRotAxis()));
 
+    leds.setDefaultCommand(
+        leds.allianceColor(() -> DriverStation.getAlliance().get().equals(Alliance.Red))
+            .repeatedly());
+
     driver
         .alignWithBall()
         .whileTrue(
@@ -243,6 +252,7 @@ public class RobotContainer {
                       drive.zeroGyroAndOdometryToAllianceWall(alliance.get());
                     },
                     drive)
+                .andThen(leds.chase_red().withTimeout(2.0)) // todo make flicker
                 .ignoringDisable(true));
   }
 
