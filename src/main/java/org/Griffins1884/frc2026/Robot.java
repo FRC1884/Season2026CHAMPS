@@ -124,6 +124,9 @@ public class Robot extends LoggedRobot {
   /** This function is called once when the robot is disabled. */
   @Override
   public void disabledInit() {
+    if (Boolean.getBoolean("season2026.simValidation.enabled")) {
+      return;
+    }
     robotContainer.resetSimulationField();
   }
 
@@ -167,7 +170,6 @@ public class Robot extends LoggedRobot {
       characterizationCommand.cancel();
       characterizationCommand = null;
     }
-    robotContainer.setTeleopState();
   }
 
   /** This function is called periodically during operator control. */

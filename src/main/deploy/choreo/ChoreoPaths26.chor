@@ -4,6 +4,20 @@
  "type":"Swerve",
  "variables":{
   "expressions":{
+   "DisruptTurnVel":{
+    "dimension":"AngVel",
+    "var":{
+     "exp":"4 rad / s",
+     "val":4.0
+    }
+   },
+   "DisruptX":{
+    "dimension":"Length",
+    "var":{
+     "exp":"8 m",
+     "val":8.0
+    }
+   },
    "FieldWidth":{
     "dimension":"Length",
     "var":{
@@ -125,6 +139,20 @@
      "val":0.7853981633974483
     }
    },
+   "LeftTrenchStart":{
+    "x":{
+     "exp":"3.5 m",
+     "val":3.5
+    },
+    "y":{
+     "exp":"7.1 m",
+     "val":7.1
+    },
+    "heading":{
+     "exp":"0 rad",
+     "val":0.0
+    }
+   },
    "MiddleStart":{
     "x":{
      "exp":"3.6 m",
@@ -165,6 +193,20 @@
     "heading":{
      "exp":"140 degrees",
      "val":2.443460952792061
+    }
+   },
+   "RightTrenchStart":{
+    "x":{
+     "exp":"3.5 m",
+     "val":3.5
+    },
+    "y":{
+     "exp":"1 m",
+     "val":1.0
+    },
+    "heading":{
+     "exp":"0 rad",
+     "val":0.0
     }
    }
   }
