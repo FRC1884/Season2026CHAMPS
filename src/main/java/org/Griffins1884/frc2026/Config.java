@@ -15,9 +15,9 @@ public final class Config {
         ROBOT == GlobalConstants.RobotType.DBOT || ROBOT == GlobalConstants.RobotType.ECLAIR;
 
     public static final boolean DRIVETRAIN_ENABLED = true;
+    public static final boolean LEDS_ENABLED = true;
     public static final boolean AUTONOMOUS_ENABLED = true;
     public static final boolean VISION_ENABLED = ROBOT != GlobalConstants.RobotType.ECLAIR;
-    public static final boolean LEDS_ENABLED = !DRIVEBASE_ONLY_ROBOT;
     public static final boolean WEBUI_ENABLED = true;
     public static final boolean TURRET_ENABLED = !DRIVEBASE_ONLY_ROBOT;
     public static final boolean SHOOTER_ENABLED = !DRIVEBASE_ONLY_ROBOT;
