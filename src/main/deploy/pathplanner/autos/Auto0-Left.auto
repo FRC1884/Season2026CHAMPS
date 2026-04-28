@@ -5,9 +5,27 @@
     "data": {
       "commands": [
         {
+          "type": "named",
+          "data": {
+            "name": "WhiteFlashLEDs"
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "LeftTrenchDisrupt"
+            "pathName": "LeftTrenchDisrupt.0"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "RainbowLEDs"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "LeftTrenchDisrupt.1"
           }
         }
       ]

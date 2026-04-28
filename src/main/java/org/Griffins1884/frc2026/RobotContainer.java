@@ -31,6 +31,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import java.io.IOException;
 import java.util.Optional;
@@ -402,8 +403,8 @@ public class RobotContainer {
             drive, driver.getYAxis(), driver.getXAxis(), driver.getRotAxis()));
 
     leds.setDefaultCommand(
-        leds.allianceColor(() -> DriverStation.getAlliance().get().equals(Alliance.Red))
-            .repeatedly());
+        leds.allianceColor(() -> DriverStation.getAlliance().get().equals(Alliance.Red)).repeatedly()
+    );
 
     driver
         .alignWithBall()
@@ -425,12 +426,16 @@ public class RobotContainer {
                       drive.zeroGyroAndOdometryToAllianceWall(alliance.get());
                     },
                     drive)
-                .andThen(leds.chase_red().withTimeout(2.0)) // todo make flicker
+                .andThen(leds.whiteFlash().repeatedly().withTimeout(2.0)) // todo make flicker
                 .ignoringDisable(true));
+
+    new Trigger(() -> DriverStation.isTeleop() && DriverStation.getMatchTime() < 25).whileTrue(
+      leds.rainbow().repeatedly()
+    );
   }
 
   private void configurePathPlannerAutonomous() {
-    AutoCommands.registerAutoCommands(superstructure, drive);
+    AutoCommands.registerAutoCommands(superstructure, drive, leds);
     if (drive == null) {
       return;
     }

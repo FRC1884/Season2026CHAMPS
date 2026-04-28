@@ -3,12 +3,13 @@ package org.Griffins1884.frc2026.commands;
 import com.pathplanner.lib.auto.NamedCommands;
 import edu.wpi.first.wpilibj2.command.Commands;
 import org.Griffins1884.frc2026.subsystems.Superstructure;
+import org.Griffins1884.frc2026.subsystems.leds.LEDSubsystem;
 import org.Griffins1884.frc2026.subsystems.swerve.SwerveSubsystem;
 
 public class AutoCommands {
   private AutoCommands() {}
 
-  public static void registerAutoCommands(Superstructure superstructure, SwerveSubsystem drive) {
+  public static void registerAutoCommands(Superstructure superstructure, SwerveSubsystem drive, LEDSubsystem leds) {
     NamedCommands.registerCommand(
         "GetRShoot",
         Commands.sequence(superstructure.setSuperStateCmd(Superstructure.SuperState.SHOOTING)));
@@ -28,5 +29,9 @@ public class AutoCommands {
 
     NamedCommands.registerCommand(
         "ShootIntake", superstructure.setSuperStateCmd(Superstructure.SuperState.SHOOT_INTAKE));
+    
+    NamedCommands.registerCommand("WhiteFlashLEDs", leds.whiteFlash());
+    
+    NamedCommands.registerCommand("RainbowLEDs", leds.rainbow());
   }
 }

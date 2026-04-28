@@ -29,15 +29,11 @@ public class LEDSubsystem extends SubsystemBase {
         this);
   }
 
+  public Command whiteFlash() {
+    return set(-1); // TODO - change
+  }
+
   public Command rainbow() {
-    return set(-0.15);
-  }
-
-  public Command oceanPallete() {
-    return set(-0.15);
-  }
-
-  public Command wave_ocean() {
     return set(-0.15);
   }
 
@@ -46,30 +42,6 @@ public class LEDSubsystem extends SubsystemBase {
   }
 
   public Command chase_blue() {
-    return set(-0.15);
-  }
-
-  public Command blend_to_black() {
-    return set(-0.15);
-  }
-
-  public Command darkRed() {
-    return set(-0.15);
-  }
-
-  public Command gold() {
-    return set(-0.15);
-  }
-
-  public Command yellow() {
-    return set(-0.15);
-  }
-
-  public Command darkBlue() {
-    return set(-0.15);
-  }
-
-  public Command violet() {
     return set(-0.15);
   }
 

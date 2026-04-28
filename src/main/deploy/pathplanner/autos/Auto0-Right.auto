@@ -5,15 +5,27 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "RightTrenchDisrupt"
+            "name": "WhiteFlash"
           }
         },
         {
-          "type": "wait",
+          "type": "path",
           "data": {
-            "waitTime": 2.0
+            "pathName": "RightTrenchDisrupt.0"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Rainbow"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "RightTrenchDisrupt.1"
           }
         }
       ]
